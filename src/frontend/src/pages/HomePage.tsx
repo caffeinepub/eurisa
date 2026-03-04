@@ -1,7 +1,7 @@
 import { LanguageToggle } from "@/components/game/LanguageToggle";
 import { Button } from "@/components/ui/button";
 import { type Language, getTranslation } from "@/translations";
-import { Globe, Leaf, TreePine, Wind } from "lucide-react";
+import { Globe, Leaf, TreePine, Video, Wind } from "lucide-react";
 import { motion } from "motion/react";
 
 interface HomePageProps {
@@ -9,6 +9,7 @@ interface HomePageProps {
   onToggleLang: () => void;
   onStartGame: () => void;
   onHowToPlay: () => void;
+  onOpenVideoHub?: () => void;
 }
 
 export function HomePage({
@@ -16,6 +17,7 @@ export function HomePage({
   onToggleLang,
   onStartGame,
   onHowToPlay,
+  onOpenVideoHub,
 }: HomePageProps) {
   const t = getTranslation(lang);
 
@@ -108,6 +110,25 @@ export function HomePage({
             📖 {t.howToPlay}
           </Button>
         </motion.div>
+
+        {/* AI Video Tools button */}
+        {onOpenVideoHub && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="mt-5"
+          >
+            <button
+              type="button"
+              data-ocid="nav.hub_link"
+              onClick={onOpenVideoHub}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white/90 hover:text-white text-sm font-medium backdrop-blur-sm transition-all"
+            >
+              <Video className="w-4 h-4" />🎬 AI Video Tools
+            </button>
+          </motion.div>
+        )}
 
         {/* Stats row */}
         <motion.div

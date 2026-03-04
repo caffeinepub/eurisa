@@ -6,11 +6,12 @@ import { HomePage } from "@/pages/HomePage";
 import { InstructionsPage } from "@/pages/InstructionsPage";
 import { ResultsPage } from "@/pages/ResultsPage";
 import { TipsPage } from "@/pages/TipsPage";
+import { VideoHubPage } from "@/pages/VideoHubPage";
 import type { Language } from "@/translations";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useState } from "react";
 
-type Page = "home" | "instructions" | "game" | "results" | "tips";
+type Page = "home" | "instructions" | "game" | "results" | "tips" | "videohub";
 
 interface DecisionRecord {
   sceneIndex: number;
@@ -108,6 +109,7 @@ export default function App() {
               onToggleLang={toggleLang}
               onStartGame={handleStartGame}
               onHowToPlay={() => setPage("instructions")}
+              onOpenVideoHub={() => setPage("videohub")}
             />
           </motion.div>
         )}
@@ -181,6 +183,18 @@ export default function App() {
               onToggleLang={toggleLang}
               onPlayAgain={handleStartGame}
             />
+          </motion.div>
+        )}
+
+        {page === "videohub" && (
+          <motion.div
+            key="videohub"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <VideoHubPage onBack={() => setPage("home")} />
           </motion.div>
         )}
       </AnimatePresence>
